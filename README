@@ -1,0 +1,102 @@
+1. IPA changes
+
+ɹ̩=3
+t͡ʃ=tʃ
+d͡ʒ=dʒ
+
+The new file after changes is harvardPhones_v2.txt
+
+2. Revision of transcription
+
+wɑz => wəz
+ɪɹ => ? ɪə
+ɛɹ => ? ɛə
+
+Modified Lines 
+3
+9
+19 across
+
+etc
+
+I'M IN LINE 40
+----------
+15 nov 2021
+
+- working on harvadPhones_v3.txt
+replacements:
+-  ʌv  -> əv
+- ɹ -> r
+
+=> Unique symbols for complex phonemes like dʒ tʃ ks are left as two phonemes
+
+Process v3 to get 
+- list of unique characters
+- total number of sentences, words, phonemes
+- distribution n words/sent char/sent
+- map transcription to alphabetic file 
+- n-grams analysis (pending)
+
+
+careful with apostrophes as they are badly transcribed john's jon'3s, don't dɑn'ti
+
+Changes in symbols -> produced v4 of the ipa file
+
+ɛ -> e
+ɑ -> o
+3 -> ɛ
+final ɛ -> ə
+
+ evɛi ->  evrɪ 
+/usr/lib/firefox
+/usr/lib/thunderbird
+
+Coverage Harvard sentences in:
+- CMU dictionary 1.0
+- RASR dictionary 0.9989
+
+
+Resulting files and scripts:
+
+------
+
+1- harvardCleanNoPunc.txt : 720 sentences in lower case without punctuation
+    1s-- g2p.py Library epitran Backoff
+2- harvardPhones_v4.txt: 720 sentences transcribed to IPA (without stress marks ['] and long vowel diacritics [:])
+    2s-- stats.py Library numpy and pandas + functions.py
+
+3- List of files:
+    3.1- harvard_data.csv
+    3.2- word_freq.csv --X--
+    3.3- phone_freq.csv
+    3.4- phone_in_words.txt Dictionary 
+    3.5- ipa2graphies.txt Dictionary
+
+---------
+
+    3s-- Crawler for ipa split in syllables http://www.dictionary.com crawl_monix.py 
+
+4- word2syll.csv: word and ipa transciption split by syllables  --X-- 
+==> Manually checked for missing -es and -ed transcriptions
+
+    4s- COLLAB NB1 analysis_syll_harvard_1.ipynb == TBD ==> turn to .py
+        - Merge syllables to word frequency word2syll.csv + word_freq and expand syllables into columns
+        - Create syllable analysis dataframe and count frequencies and number of phonemes 
+
+5- words_syll_frq.csv Merged and extended --X2Y--
+6- syll_freq.csv --S--  == TBD ==> add (rather multiply) by word frequency these numbers
+
+    6S- COLLAB NB2 analysis_syll_harvard_2.ipynb
+        - Syllable pattern: CV 
+        - Syllable pattern Reduction to CVC, VC, CV, V, C Plot most frequent patterns in 2 to 6 phoneme long syllables
+        - Consonant clusters: boolean True 120/ False 1632
+        - Diphthong: boolean True 484/ False 1268
+        - Type of phoneme: weak vowel (W), stressed vowels (V), fricative (F), plosive (P), nasal (N), rotar (R), lateral (L)
+        - syllable nucleus 'vowel' == TBD ==> change name of column to 'nucleus' DONE!!
+        - consonant pre-nucleus
+        - consonant post-nucleus
+
+7- df.csv --S2Z--
+
+    7S- COLLAB NB3 analysis_syll_harvard_3.ipynb == TBD ==> merge to notebook or script
+        - Phonetic position analysis front, mid, back vowel and const Boolean
